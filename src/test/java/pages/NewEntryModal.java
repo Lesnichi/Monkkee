@@ -2,14 +2,11 @@ package pages;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
-import org.testng.Assert;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.alertIsPresent;
 
-public class NewEntryModal extends BasePage{
-
+public class NewEntryModal extends BasePage {
 
     public static final By EDIT_TABLE = By.id("editable");
     public static final By DELETE_ENTRY_BUTTON = By.id("delete-entry");
@@ -25,20 +22,17 @@ public class NewEntryModal extends BasePage{
         driver.get(URL_ENTRIES_PAGE);
     }
 
-    public void fillText(String text)   {
+    public void fillText(String text) {
         driver.findElement(EDIT_TABLE).sendKeys(text);
     }
 
-    public void backToEntries()   {
+    public void backToEntries() {
         driver.findElement(BACK_BUTTON).click();
     }
 
-    public void deleteEntry()   {
+    public void deleteEntry() {
         driver.findElement(DELETE_ENTRY_BUTTON).click();
         Alert alert = wait.until(alertIsPresent());
         alert.accept();
     }
-
-
-
 }

@@ -1,7 +1,7 @@
 package tests;
 
 import org.testng.annotations.Test;
-import pages.EntriesPage;
+
 
 import static org.testng.Assert.assertTrue;
 
@@ -11,17 +11,24 @@ public class EntryTest extends BaseTest {
     String password = "tms09AQA";
 
 
-    @Test(description = "Create new Entry")
+    @Test(description = "Creation new Entry")
     public void createNewEntry() {
-        loginSteps.login(login, password);
-        entriesSteps.createEntry("Text 1");
-        }
+        loginPage.open();
+        loginPage.login(login, password);
+        entriesPage.isPageOpened();
+        entriesPage.createNewEntry("Text1");
+        entriesPage.backToEntries();
+    }
 
     @Test(description = "Delete Entry")
     public void deleteEntry() {
-        loginSteps.login(login, password);
-        entriesSteps.openOneEntry();
-        entrySteps.deleteEntry();
+        loginPage.open();
+        loginPage.loginwithoutTryCatch(login, password);
+        entriesPage.isPageOpened();
+        entriesPage.createNewEntry("Text1");
+        entriesPage.backToEntries();
+        entriesPage.getEntryByIndex(1).click();
+        newEntryModal.deleteEntry();
     }
 
 }
