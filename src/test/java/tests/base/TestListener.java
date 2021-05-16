@@ -1,4 +1,4 @@
-package tests;
+package tests.base;
 
 import io.qameta.allure.Attachment;
 import org.openqa.selenium.NoSuchSessionException;
@@ -47,7 +47,6 @@ public class TestListener implements ITestListener {
             return new byte[]{};
         }
     }
-
 
     private long getExecutionTime(ITestResult iTestResult) {
         return TimeUnit.MILLISECONDS.toSeconds(iTestResult.getEndMillis() - iTestResult.getStartMillis());

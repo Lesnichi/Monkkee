@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -30,6 +31,7 @@ public class NewEntryModal extends BasePage {
         driver.findElement(BACK_BUTTON).click();
     }
 
+    @Step("Delete onr entry")
     public void deleteEntry() {
         driver.findElement(DELETE_ENTRY_BUTTON).click();
         Alert alert = wait.until(alertIsPresent());
