@@ -11,11 +11,15 @@ import org.testng.annotations.Listeners;
 import pages.EntriesPage;
 import pages.LoginPage;
 import pages.NewEntryModal;
+import tests.base.TestListener;
 
 import java.util.concurrent.TimeUnit;
 
 @Listeners(TestListener.class)
 public class BaseTest {
+
+    String login = "tms-qa@yandex.ru";
+    String password = "tms09AQA";
 
     WebDriver driver;
     LoginPage loginPage;

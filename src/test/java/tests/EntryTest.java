@@ -4,9 +4,6 @@ import org.testng.annotations.Test;
 
 public class EntryTest extends BaseTest {
 
-    String login = "tms-qa@yandex.ru";
-    String password = "tms09AQA";
-
     @Test(description = "Creation new Entry")
     public void createNewEntry() {
         loginPage.open();
@@ -26,5 +23,4 @@ public class EntryTest extends BaseTest {
         entriesPage.getEntryByIndex(1).click();
         newEntryModal.deleteEntry();
     }
-
 }
