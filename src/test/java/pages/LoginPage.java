@@ -4,8 +4,6 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.*;
 import org.testng.Assert;
 
-import java.util.concurrent.TimeUnit;
-
 public class LoginPage extends BasePage {
 
     public static final String URL_LOGIN_PAGE = "https://my.monkkee.com";
@@ -53,6 +51,7 @@ public class LoginPage extends BasePage {
         return driver.findElement(TEXT_FIELD).getText();
     }
 
+    @Step("Checking the opening of the login page")
     public boolean isPageOpened() {
         boolean isOpened;
         try {

@@ -10,7 +10,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import pages.EntriesPage;
 import pages.LoginPage;
-import pages.NewEntryModal;
+import pages.NewEntryPage;
+import pages.SettingsPage;
 import tests.base.TestListener;
 
 import java.util.concurrent.TimeUnit;
@@ -20,11 +21,13 @@ public class BaseTest {
 
     String login = "tms-qa@yandex.ru";
     String password = "tms09AQA";
+    String alias = "aliasqa09";
 
     WebDriver driver;
     LoginPage loginPage;
     EntriesPage entriesPage;
-    NewEntryModal newEntryModal;
+    NewEntryPage newEntryModal;
+    SettingsPage settingsPage;
 
     @BeforeMethod(description = "Opening browser")
     public void setup(ITestContext context) {
@@ -36,7 +39,8 @@ public class BaseTest {
 
         loginPage = new LoginPage(driver);
         entriesPage = new EntriesPage(driver);
-        newEntryModal = new NewEntryModal(driver);
+        newEntryModal = new NewEntryPage(driver);
+        settingsPage = new SettingsPage(driver);
 
         context.setAttribute("driver", driver);
     }

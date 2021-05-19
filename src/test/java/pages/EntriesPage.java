@@ -1,25 +1,25 @@
 package pages;
 
 import io.qameta.allure.Step;
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
-import java.util.concurrent.TimeUnit;
+import static org.openqa.selenium.support.ui.ExpectedConditions.alertIsPresent;
 
 public class EntriesPage extends BasePage {
 
     private static final By SETTINGS_BUTTON = By.cssSelector(".icon-cog.icon-light");
     public static final By CREATE_AN_EMPTY_BUTTON = By.id("create-entry");
-    public static final By EDIT_TABLE = By.id("editable");
+    public static final By EDIT_TABLE = By.cssSelector(".contenteditable.cke_editable");
     public static final By BACK_BUTTON = By.id("back-to-overview");
-    public static final By ENTRY = By.cssSelector("div[ng-bind-html='entry.body']");
-    public static final By ENTRY_CONTAINER = By.cssSelector(".entry-container");
-    public static final By ENTRIES_CONTAINER = By.cssSelector(".model.checked[entry.id]");
+    public static final By ENTRY_CONTAINER = By.xpath("//div[@class='body ']");
     private static final By LOGOUT_BUTTON = By.cssSelector(".icon-off.icon-light");
     private static final By LOGOUT_BUTTON_POPUP = By.xpath("//div[text()='Log out']");
+    private static final By ALL_CHECKBOX = By.cssSelector("[title='Select all']");
+    public static final By DELETE_ENTRIES_BUTTON = By.id("delete-entries");
+
 
     public static final String URL_ENTRIES_PAGE = "https://my.monkkee.com/#/entries";
 
@@ -27,7 +27,7 @@ public class EntriesPage extends BasePage {
         super(driver);
     }
 
-    @Step("Openning enties page")
+    @Step("Opening entries page")
     public void open() {
         driver.get(URL_ENTRIES_PAGE);
     }
@@ -45,24 +45,19 @@ public class EntriesPage extends BasePage {
         return isOpened;
     }
 
+    @Step("Creating entry and entering the text")
     public void createNewEntry(String text) {
-        try {
-            driver.findElement(CREATE_AN_EMPTY_BUTTON).click();
-            driver.findElement(EDIT_TABLE).sendKeys(text);
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        driver.findElement(CREATE_AN_EMPTY_BUTTON).click();
+        Actions action = new Actions(driver);
+        action.click(driver.findElement(EDIT_TABLE)).sendKeys(text).perform();
     }
 
+    @Step("Returning to all entries page entry")
     public void backToEntries() {
         driver.findElement(BACK_BUTTON).click();
     }
 
-    public void openOneEntry() {
-        driver.findElement(ENTRY).click();
-    }
-
+    @Step("Getting entry by index")
     public WebElement getEntryByIndex(int index) {
         return driver.findElements(ENTRY_CONTAINER).get(index);
     }
@@ -75,5 +70,12 @@ public class EntriesPage extends BasePage {
         } catch (NoSuchElementException exception) {
             System.out.println("POPUP (logout) window appeared");
         }
+    }
+
+    @Step("Deleting all entries from EntriesPage")
+    public void deleteAllEntries() {
+        driver.findElement(ALL_CHECKBOX).click();
+        driver.findElement(DELETE_ENTRIES_BUTTON).click();
+        driver.switchTo().alert().accept();
     }
 }

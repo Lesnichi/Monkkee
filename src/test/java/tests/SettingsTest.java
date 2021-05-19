@@ -2,27 +2,30 @@ package tests;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.LoginPage;
 import tests.base.Retry;
-
-import static org.testng.Assert.assertTrue;
 
 public class SettingsTest extends BaseTest {
 
-    @Test(retryAnalyzer = Retry.class, description = "Log Out")
-    public void logout() {
+    @Test(retryAnalyzer = Retry.class, description = "Selecting language")
+    public void selectLanguage() {
         loginPage.open();
         loginPage.login(login, password);
-        entriesPage.isPageOpened();
-        entriesPage.logout();
-        assertTrue(new LoginPage(driver).isPageOpened(), "Main page was not opened");
+        settingsPage.open();
+        settingsPage.isPageOpened();
+        settingsPage.selectLanguageDeutsch();
+        Assert.assertEquals(settingsPage.getTextForSuccessfullyLanguageChange(), "Deine Spracheinstellung wurde erfolgreich geändert", "Language is not changed");
+        settingsPage.selectLanguageEng();
+        Assert.assertEquals(settingsPage.getTextForSuccessfullyLanguageChange(), "Your language has been changed successfully", "Language is not changed");
+
     }
 
-    @Test(description = "Send reminder")
-    public void sendReminder() {
+    @Test(description = "Setting alias for Login")
+    public void enterByAlias() {
         loginPage.open();
-        loginPage.sendPasswordReminder(login);
-        Assert.assertEquals(loginPage.getTextForSuccessfullyPasswordHint(), "If the email address you entered is recognised," +
-                " an email with a password hint will be sent to it.", "Hint didn't send");
+        loginPage.login(login, password);
+        settingsPage.open();
+        settingsPage.isPageOpened();
+        settingsPage.setAlias(alias);
+        Assert.assertEquals(settingsPage.getTextForSuccessfullyLanguageChange(), "Your settings have been saved successfully", "Alias is not accepted");
     }
 }

@@ -16,6 +16,13 @@ public class LoginTest extends BaseTest {
         assertTrue(new EntriesPage(driver).isPageOpened(), "Main page was not opened");
     }
 
+    @Test(retryAnalyzer = Retry.class, description = "Log in with alias")
+    public void loginWithAlias() {
+        loginPage.open();
+        loginPage.login(alias, password);
+        assertTrue(new EntriesPage(driver).isPageOpened(), "Main page was not opened");
+    }
+
     @Test(description = "Send reminder")
     public void sendReminder() {
         loginPage.open();
